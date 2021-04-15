@@ -1,6 +1,6 @@
-# CIFAR_10-with-pytorch
+# You-Draw-I-Guess
 
-一个Pytorch练习，实现CIFAR-10数据集的图像分类
+An image classification system based on CIFAR-10.
 
 
 

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*
+
 import torch as t 
 from torch.autograd import Variable
 import torchvision as tv 
@@ -7,7 +9,7 @@ class Tester():
     def __init__(self, test_loader, net, args):
         self.test_loader = test_loader
         self.net = net
-        self.device = t.device("cuda:0" if t.cuda.is_available() and not args.no_cuda else "cpu")
+        self.device = t.device("cuda" if t.cuda.is_available() and not args.no_cuda else "cpu")
         self.net.to(self.device)
 
     def test(self):

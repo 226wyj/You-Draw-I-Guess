@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*
+
 from predict import Predictor
 from train import Trainer
 from test import Tester 
@@ -45,6 +47,9 @@ def main(args):
         weight_decay=args.weight_decay
     )
 
+    # 余弦退火调整学习率
+    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=150)
+
     
     # 模型的参数保存路径，默认为 "./model/state_dict"
     model_path = os.path.join(args.model_path, model_name)
@@ -52,7 +57,7 @@ def main(args):
     # 启动训练
     if args.do_train:
         print("Training...")
-        trainer = Trainer(net, criterion, optimizer, dataSet.train_loader, args)
+        trainer = Trainer(net, criterion, optimizer, scheduler, dataSet.train_loader, args)
         trainer.train(epochs=args.epoch)
         t.save(net.state_dict(), model_path)
     
@@ -74,7 +79,7 @@ def main(args):
         show_model(args)
     
     if args.do_predict:
-        device = t.device("cuda:0" if t.cuda.is_available() else "cpu")
+        device = t.device("cuda" if t.cuda.is_available() else "cpu")
         net.load_state_dict(t.load(model_path, map_location=device))
         predictor = Predictor(net, classes)
         # img_path = 'test'
@@ -101,7 +106,7 @@ if __name__ == "__main__":
     parser.add_argument("--name_res", default="state_dict_res", type=str, help="The name of the saved model's parameters.")
 
     # 训练相关
-    parser.add_argument("--batch_size", default=4, type=int, help="Batch size for training and evaluation.")
+    parser.add_argument("--batch_size", default=128, type=int, help="Batch size for training and evaluation.")
     parser.add_argument("--epoch", default=10, type=int, help="The number of training epochs.")
     parser.add_argument("--seed", default=42, type=int, help="The random seed used for initialization.")
     

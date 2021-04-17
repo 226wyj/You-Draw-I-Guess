@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*
+
 import torch as t 
 from torch.autograd import Variable
 import torchvision.transforms as transforms
@@ -7,7 +9,7 @@ class Predictor():
     def __init__(self, net, classes):
         self.net = net
         self.classes = classes
-        self.device = t.device("cuda:0" if t.cuda.is_available() else "cpu")
+        self.device = t.device("cuda" if t.cuda.is_available() else "cpu")
         self.net.to(self.device)
     
     def predict_transform(self):

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*
+
 import torchvision as tv 
 import torch as t 
 import torchvision.transforms as transforms

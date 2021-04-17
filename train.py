@@ -1,15 +1,18 @@
+# -*- coding: utf-8 -*
+
 import torch as t
 from torch.autograd import Variable
 from tqdm import tqdm
 
 class Trainer():
-    def __init__(self, net, criterion, optimizer, train_loader, args):
+    def __init__(self, net, criterion, optimizer, scheduler, train_loader, args):
         self.net = net 
         self.criterion = criterion
         self.optimizer = optimizer
+        self.scheduler = scheduler
         self.train_loader = train_loader
         self.args = args
-        self.device = t.device("cuda:0" if t.cuda.is_available() and not args.no_cuda else "cpu")
+        self.device = t.device("cuda" if t.cuda.is_available() and not args.no_cuda else "cpu")
         self.net.to(self.device)
 
     def train(self, epochs):
@@ -35,6 +38,9 @@ class Trainer():
 
                 # 更新参数
                 self.optimizer.step()
+
+                # 更新学习率
+                self.scheduler.step()
 
                 # 打印训练信息
                 running_loss += loss.item()

@@ -34,7 +34,7 @@ def main(args):
         net = Vgg16_Net()
         model_name = args.name_vgg
     elif args.resnet:
-        pass
+        model_name = args.name_res
     
     # 交叉熵损失函数
     criterion = nn.CrossEntropyLoss()
@@ -51,27 +51,39 @@ def main(args):
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=150)
 
     
-    # 模型的参数保存路径，默认为 "./model/state_dict"
+    # 模型的参数保存路径
     model_path = os.path.join(args.model_path, model_name)
+
+
 
     # 启动训练
     if args.do_train:
         print("Training...")
-        trainer = Trainer(net, criterion, optimizer, scheduler, dataSet.train_loader, args)
+
+        trainer = Trainer(net, criterion, optimizer, scheduler, 
+                    dataSet.train_loader, dataSet.test_loader, args)
+
         trainer.train(epochs=args.epoch)
-        t.save(net.state_dict(), model_path)
+        # t.save(net.state_dict(), model_path)
     
     # 启动测试
     if args.do_eval:
-        if not os.path.exists(model_path):
+        if not args.do_train and not os.path.exists(model_path):
             print("Sorry, there's no saved model yet, you need to train first.")
             return
-        print("Testing...")
-        net.load_state_dict(t.load(model_path))
-        # net.eval()
-        tester = Tester(dataSet.test_loader, net, args)
+        # --do_train --do_eval
+        if args.do_train:
+            model = net
+        # --do_eval
+        else:
+            model = net.load_state_dict(t.load(model_path)['net'])
+            accuracy = net.load_state_dict(t.load(model_path)['acc'])
+            epoch = net.load_state_dict(t.load(model_path)['epoch'])
+            print("Using saved model, accuracy : %f  epoch: %d" % (accuracy, epoch))
+        # net.load_state_dict(t.load(model_path))
+        tester = Tester(dataSet.test_loader, model, args)
         tester.test()
-    
+
     if args.show_model:
         if not os.path.exists(model_path):
             print("Sorry, there's no saved model yet, you need to train first.")
@@ -89,6 +101,7 @@ def main(args):
         img_path = 'test/cat0.jpg'
         predictor.predict(img_path)
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
    
@@ -101,9 +114,9 @@ if __name__ == "__main__":
     parser.add_argument("--model_path", default="model", type=str, help="The directory of the saved model.")
     
     # 模型参数文件名字
-    parser.add_argument("--name_le", default="state_dict_le", type=str, help="The name of the saved model's parameters.")
-    parser.add_argument("--name_vgg", default="state_dict_vgg", type=str, help="The name of the saved model's parameters.")
-    parser.add_argument("--name_res", default="state_dict_res", type=str, help="The name of the saved model's parameters.")
+    parser.add_argument("--name_le", default="lenet.pth", type=str, help="The name of the saved model's parameters.")
+    parser.add_argument("--name_vgg", default="vgg.pth", type=str, help="The name of the saved model's parameters.")
+    parser.add_argument("--name_res", default="resnet.pth", type=str, help="The name of the saved model's parameters.")
 
     # 训练相关
     parser.add_argument("--batch_size", default=128, type=int, help="Batch size for training and evaluation.")

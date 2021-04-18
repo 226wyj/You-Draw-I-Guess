@@ -5,7 +5,7 @@ from train import Trainer
 from test import Tester 
 from models.lenet import LeNet
 from models.vgg16 import Vgg16_Net
-# from model import LeNet, Vgg16_Net
+from models.resnet import ResNet18
 from dataset import DataSet, DataBuilder 
 from util import check_path, show_model
 
@@ -36,6 +36,7 @@ def main(args):
         net = Vgg16_Net()
         model_name = args.name_vgg
     elif args.resnet:
+        net = ResNet18()
         model_name = args.name_res
     
     # 交叉熵损失函数

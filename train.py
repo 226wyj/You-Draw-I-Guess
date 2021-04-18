@@ -12,7 +12,7 @@ class Trainer():
         self.scheduler = scheduler
         self.train_loader = train_loader
         self.args = args
-        self.device = t.device("cuda" if t.cuda.is_available() and not args.no_cuda else "cpu")
+        self.device = t.device("cuda:1" if t.cuda.is_available() and not args.no_cuda else "cpu")
         self.net.to(self.device)
 
     def train(self, epochs):

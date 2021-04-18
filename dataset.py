@@ -13,7 +13,6 @@ class DataSet():
         self.test_loader = test_loader
         self.classes = classes
 
-
 class DataBuilder():
     '''
     构造训练集、测试集
@@ -21,22 +20,17 @@ class DataBuilder():
     def __init__(self, args) -> None:
         self.args = args
     
-    # 数据预处理, 通过Compose将各个变换串联起来
-    def transform_builder(self):
-        transform = transforms.Compose([
-            transforms.ToTensor(),  # 转换成Tensor
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))  # 将图片各个通道的像素归一化
-        ])
-        return transform
-
+    # 训练集数据预处理
     def train_transform(self):
         transform = transforms.Compose([
+            transforms.RandomCrop(32, padding=4),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
             transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
         ])
         return transform
     
+    # 测试集数据预处理
     def test_transform(self):
         transform = transforms.Compose([
             transforms.ToTensor(),  # 转换成Tensor

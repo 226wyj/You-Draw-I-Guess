@@ -3,7 +3,9 @@
 from predict import Predictor
 from train import Trainer
 from test import Tester 
-from model import LeNet, Vgg16_Net
+from models.lenet import LeNet
+from models.vgg16 import Vgg16_Net
+# from model import LeNet, Vgg16_Net
 from dataset import DataSet, DataBuilder 
 from util import check_path, show_model
 
@@ -61,27 +63,25 @@ def main(args):
         print("Training...")
 
         trainer = Trainer(net, criterion, optimizer, scheduler, 
-                    dataSet.train_loader, dataSet.test_loader, args)
+            dataSet.train_loader, dataSet.test_loader, model_path, args)
 
         trainer.train(epochs=args.epoch)
         # t.save(net.state_dict(), model_path)
     
-    # 启动测试
+    # 启动测试，如果--do_train也出现，则用刚刚训练的模型进行测试
+    # 否则就使用已保存的模型进行测试
     if args.do_eval:
         if not args.do_train and not os.path.exists(model_path):
             print("Sorry, there's no saved model yet, you need to train first.")
             return
-        # --do_train --do_eval
-        if args.do_train:
-            model = net
         # --do_eval
-        else:
-            model = net.load_state_dict(t.load(model_path)['net'])
-            accuracy = net.load_state_dict(t.load(model_path)['acc'])
-            epoch = net.load_state_dict(t.load(model_path)['epoch'])
+        if not args.do_train:
+            checkpoint = t.load(model_path)
+            net.load_state_dict(checkpoint['net'])
+            accuracy = checkpoint['acc']
+            epoch = checkpoint['epoch']
             print("Using saved model, accuracy : %f  epoch: %d" % (accuracy, epoch))
-        # net.load_state_dict(t.load(model_path))
-        tester = Tester(dataSet.test_loader, model, args)
+        tester = Tester(dataSet.test_loader, net, args)
         tester.test()
 
     if args.show_model:
@@ -92,14 +92,15 @@ def main(args):
     
     if args.do_predict:
         device = t.device("cuda" if t.cuda.is_available() else "cpu")
-        net.load_state_dict(t.load(model_path, map_location=device))
+        checkpoint = t.load(model_path, map_location=device)
+        net.load_state_dict(checkpoint['net'])
         predictor = Predictor(net, classes)
-        # img_path = 'test'
-        # img_name = [os.path.join(img_path, x) for x in os.listdir(img_path)]
-        # for img in img_name:
-        #     predictor.predict(img)
-        img_path = 'test/cat0.jpg'
-        predictor.predict(img_path)
+        img_path = 'test'
+        img_name = [os.path.join(img_path, x) for x in os.listdir(img_path)]
+        for img in img_name:
+            predictor.predict(img)
+        # img_path = 'test/cat0.jpg'
+        # predictor.predict(img_path)
 
 
 if __name__ == "__main__":
@@ -111,7 +112,7 @@ if __name__ == "__main__":
 
     # 根目录
     parser.add_argument("--data_path", default="data", type=str, help="The directory of the CIFAR-10 data.")
-    parser.add_argument("--model_path", default="model", type=str, help="The directory of the saved model.")
+    parser.add_argument("--model_path", default="saved", type=str, help="The directory of the saved model.")
     
     # 模型参数文件名字
     parser.add_argument("--name_le", default="lenet.pth", type=str, help="The name of the saved model's parameters.")

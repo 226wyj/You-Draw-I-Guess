@@ -2,6 +2,7 @@
 /data/
 /.vscode/
 /__pycache__/
-/model/
+/saved/
 /.DS_Store/
 /test/
+/models/__pycache__/

@@ -5,7 +5,7 @@ from train import Trainer
 from test import Tester 
 from models.lenet import LeNet
 from models.vgg16 import Vgg16_Net
-from models.resnet import ResNet18
+from models.resnet import ResNet18, ResNet34, ResNet50, ResNet101, ResNet152
 from dataset import DataSet, DataBuilder 
 from util import check_path, show_model
 

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/paint.css') }}">
+{% endblock %}
+
+{% block scripts %} 
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/paint.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    {% include 'paint.html' %}
+{% endblock %}  

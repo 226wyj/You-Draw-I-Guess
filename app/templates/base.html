@@ -1,0 +1,23 @@
+{% extends "bootstrap/base.html" %}
+
+<!-- Title -->
+{% block title %}You Draw, I Guess{% endblock %}
+
+<!-- Icon -->
+{% block head %}
+{{ super() }}
+<link rel="shortcut icon" href="{{ url_for('static', filename='img/draw.ico') }}"
+    type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='img/draw.ico') }}"
+    type="image/x-icon">
+{% endblock %}
+
+
+<!--Navigation Bar-->
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %} 
+
+<!-- Content -->
+{% block content %} {% endblock %}
+    

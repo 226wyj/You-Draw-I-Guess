@@ -10,7 +10,8 @@ An image classification system based on CIFAR-10.
 * PIL
 * tqdm
 * argparse
-* streamlit
+* flask
+* Bootstrap 4.6.0
 
 
 
@@ -25,7 +26,7 @@ An image classification system based on CIFAR-10.
 训练：
 
 ```python
-python ./main.py --do_train 
+python ./main.py --do_train --vgg --epoch=200
 ```
 
 
@@ -33,7 +34,7 @@ python ./main.py --do_train
 测试：
 
 ```python
-python ./main.py --do_eval
+python ./main.py --do_eval --vgg
 ```
 
 
@@ -41,6 +42,6 @@ python ./main.py --do_eval
 预测：
 
 ```python
-python ./main.py --do_predict
+python ./main.py --do_predict --vgg
 ```
 

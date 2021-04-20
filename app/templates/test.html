@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="{{ url_for('static', filename='js/jquery/3.5.1/JQuery.js') }}"></script>
+        <link href="{{ url_for('static', filename='css/bootstrap/4.6.0/bootstrap.min.css') }}" rel="stylesheet">
+        <script src="{{ url_for('static', filename='js/bootstrap/4.6.0/bootstrap.min.js') }}"></script>
+        
+        <!--Icon-->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='img/draw.ico') }}"
+            type="image/x-icon">
+        <link rel="icon" href="{{ url_for('static', filename='img/draw.ico') }}"
+            type="image/x-icon">
+    </head>
+    <body>
+
+        <div class="container-fluid">
+            <!--Row 1, Navbar-->
+            <div class="row">
+                <div class="col-md-12">
+                    {% include 'navtest.html' %}
+                </div>
+            </div>
+
+            <h1>Your Draw, I Guess</h1>
+            
+            <!-- Row 2, tool bar, canvas, and results-->
+            <div class="row">
+                <div class="col-md-2">
+                    <h5>Tools</h5>
+                    <div class="btn-group-vertical">
+                        <button class="btn btn-secondary">1</button>
+                        <button class="btn btn-secondary">2</button>    
+                    </div>                
+                </div>
+                <div class="col-md-6"><center>Canvas</center></div>
+                <div class="col-md-1">
+                    <h5>Go</h5>
+                    <center><button class="btn btn-success">按钮</button></center>  
+                </div>
+                <div class="col-md-3">Result</div>
+            </div>
+        </div>  
+    </body>
+</html>

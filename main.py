@@ -35,10 +35,22 @@ def main(args):
     elif args.vgg:
         net = Vgg16_Net()
         model_name = args.name_vgg
-    elif args.resnet:
+    elif args.resnet18:
         net = ResNet18()
-        model_name = args.name_res
-    
+        model_name = args.name_res18
+    elif args.resnet34:
+        net = ResNet34()
+        model_name = args.name_res34
+    elif args.resnet50:
+        net = ResNet50()
+        model_name = args.name_res50  
+    elif args.resnet101:
+        net = ResNet101()
+        model_name = args.name_res101
+    elif args.resnet152:
+        net = ResNet152()
+        model_name = args.name_res152
+
     # 交叉熵损失函数
     criterion = nn.CrossEntropyLoss()
     
@@ -118,7 +130,11 @@ if __name__ == "__main__":
     # 模型参数文件名字
     parser.add_argument("--name_le", default="lenet.pth", type=str, help="The name of the saved model's parameters.")
     parser.add_argument("--name_vgg", default="vgg.pth", type=str, help="The name of the saved model's parameters.")
-    parser.add_argument("--name_res", default="resnet.pth", type=str, help="The name of the saved model's parameters.")
+    parser.add_argument("--name_res18", default="resnet.pth", type=str, help="The name of the saved model's parameters.")
+    parser.add_argument("--name_res34", default="resnet34.pth", type=str, help="The name of the saved model's parameters.")
+    parser.add_argument("--name_res50", default="resnet50.pth", type=str, help="The name of the saved model's parameters.")
+    parser.add_argument("--name_res101", default="resnet101.pth", type=str, help="The name of the saved model's parameters.")
+    parser.add_argument("--name_res152", default="resnet152.pth", type=str, help="The name of the saved model's parameters.")
 
     # 训练相关
     parser.add_argument("--batch_size", default=128, type=int, help="Batch size for training and evaluation.")
@@ -141,7 +157,11 @@ if __name__ == "__main__":
     parser.add_argument("--show_model", action="store_true", help="Display the state dict of the model.")
     parser.add_argument("--lenet", action="store_true", help="Use LeNet-5 as the model.")
     parser.add_argument("--vgg", action="store_true", help="Use VGG-16 as the model.")
-    parser.add_argument("--resnet", action="store_true", help="Use ResNet as the model.")
+    parser.add_argument("--resnet18", action="store_true", help="Use ResNet as the model.")
+    parser.add_argument("--resnet34", action="store_true", help="Use ResNet as the model.")
+    parser.add_argument("--resnet50", action="store_true", help="Use ResNet as the model.")
+    parser.add_argument("--resnet101", action="store_true", help="Use ResNet as the model.")
+    parser.add_argument("--resnet152", action="store_true", help="Use ResNet as the model.")
 
 
     args = parser.parse_args()

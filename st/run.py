@@ -7,7 +7,7 @@ from models.lenet import LeNet
 from models.resnet import ResNet18, ResNet34, ResNet50, ResNet101
 from models.vgg16 import Vgg16_Net
 import torch as t
-
+import os
 from st.contents import intro_team, intro_dataset, \
                 intro_method, intro_reference, show_img
 
@@ -33,8 +33,6 @@ def main():
         presentation()
     else:
         classify_img()
-
-
 
 def presentation():
     back_to_system = st.button("Back", key="first")
@@ -129,6 +127,10 @@ def classify_img():
         result = predictor.predict(upload_img)
         side_bar.title("Result")
         side_bar.success("The picture is a %s" % classes[result])
+
+        side_bar.title("Accuracy")
+        side_bar.warning("test accuracy : %f" % (accuracy))
+
 
 if __name__ == '__main__':
     main()

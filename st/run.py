@@ -12,17 +12,41 @@ import torch as t
 import os
 from PIL import Image
 
-with open('style.css', 'r') as f:
-    st.markdown('<style>{}<style>'.format(f.read()), unsafe_allow_html=True)
-
 # all  classes in CIFAR-10
 classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
-# show necessary messages
+# Title
 st.title("Image Classification System")
-st.subheader("This is the final project of our team, and the members are shown below:")
-
 st.markdown(
+    """
+    
+    <br><br />
+    This is the final project of our team.
+    <br><br />
+    We implemented a simple image classification system based on deep learning method.
+    <br><br />
+    To read more about how the system works, click below.
+
+    """
+    , unsafe_allow_html=True
+)
+
+
+def presentation():
+    def show_img(url):
+        st.markdown(
+        """
+        <div align="center">
+            <img src={} />
+        </div>
+        """.format(url)
+        , unsafe_allow_html=True
+        )
+
+
+    # team member introduction
+    st.subheader("There are two members in our team:")
+    st.markdown(
     """
     <div align="center">
     <table>
@@ -41,8 +65,43 @@ st.markdown(
     </table>
     </div>
     """
-    , unsafe_allow_html=True
-)
+    , unsafe_allow_html=True)
+
+    st.markdown("## 1. Structure of the project")
+
+    show_img("https://raw.githubusercontent.com/226wyj/You-Draw-I-Guess/main/st/img/module.jpg?token=AFSVXAXOK3C4L25CS6GBVS3AUDDOW")
+
+    # st.markdown(
+    #     """
+    #     <div align="center">
+    #         <img src=https://raw.githubusercontent.com/226wyj/You-Draw-I-Guess/main/st/img/module.jpg?token=AFSVXAUN5MNYWKF7MAGGPFDAUDB2M />
+    #     </div>
+    #     """
+    #     , unsafe_allow_html=True
+    # )
+
+    st.markdown("## 2. Dataset: CIFAR-10")
+    st.markdown(
+        """
+        The CIFAR-10 dataset consists of 60000 32x32 colour images in 10  classes, 
+        with 6000 images per class. There are 50000 training images and 10000 
+        test images. The dataset is divided into five training batches and one 
+        test batch,  each with 10000 images. The test batch contains exactly 1000 
+        randomly-selected images from each class. The training batches contain 
+        the remaining images in random order, but some training batches may 
+        contain more images from one class than another. Between them, the 
+        training batches contain exactly 5000 images from each class. A glimpse 
+        of the dataset is shown as the following figure.
+        """
+    )
+    show_img()
+
+more_info = st.button("More about this")
+
+if more_info:
+    presentation()
+
+
 
 st.markdown('---')
 st.write("### 1. Structure of the Project")
@@ -87,20 +146,22 @@ def get_model(model):
         model_name = 'resnet101.pth'
     return net, os.path.join(model_path, model_name)
 
-# upload image
-upload_img = st.file_uploader("Please upload your image", type="jpg")
+def classify_img():
 
-if upload_img is not None:
-    st.image(upload_img)
-    net, model_path = get_model(model)
+    # upload image
+    upload_img = st.file_uploader("Please upload your image", type="jpg")
 
-    checkpoint = t.load(model_path, map_location=t.device('cpu'))
-    net.load_state_dict(checkpoint['net'])
-    accuracy = checkpoint['acc']
-    epoch = checkpoint['epoch']
-    st.write("Using %s , test accuracy : %f,  epoch: %d" % (model, accuracy, epoch))
+    if upload_img is not None:
+        st.image(upload_img)
+        net, model_path = get_model(model)
 
-    predictor = Predictor(net, classes)
-    result = predictor.predict(upload_img)
-    side_bar.title("Result")
-    side_bar.success("The picture is a %s" % classes[result])
+        checkpoint = t.load(model_path, map_location=t.device('cpu'))
+        net.load_state_dict(checkpoint['net'])
+        accuracy = checkpoint['acc']
+        epoch = checkpoint['epoch']
+        st.write("Using %s , test accuracy : %f,  epoch: %d" % (model, accuracy, epoch))
+
+        predictor = Predictor(net, classes)
+        result = predictor.predict(upload_img)
+        side_bar.title("Result")
+        side_bar.success("The picture is a %s" % classes[result])

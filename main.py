@@ -129,8 +129,8 @@ if __name__ == "__main__":
     
     # 模型参数文件名字
     parser.add_argument("--name_le", default="lenet.pth", type=str, help="The name of the saved model's parameters.")
-    parser.add_argument("--name_vgg", default="vgg.pth", type=str, help="The name of the saved model's parameters.")
-    parser.add_argument("--name_res18", default="resnet.pth", type=str, help="The name of the saved model's parameters.")
+    parser.add_argument("--name_vgg", default="vgg16.pth", type=str, help="The name of the saved model's parameters.")
+    parser.add_argument("--name_res18", default="resnet18.pth", type=str, help="The name of the saved model's parameters.")
     parser.add_argument("--name_res34", default="resnet34.pth", type=str, help="The name of the saved model's parameters.")
     parser.add_argument("--name_res50", default="resnet50.pth", type=str, help="The name of the saved model's parameters.")
     parser.add_argument("--name_res101", default="resnet101.pth", type=str, help="The name of the saved model's parameters.")

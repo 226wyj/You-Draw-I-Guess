@@ -1,0 +1,68 @@
+{% extends 'test.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/paint.css') }}">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/paint.js') }}"></script>
+{% endblock %}
+
+
+{% block content %}
+<style>
+    .myRow {
+        border: solid;
+    }
+    .myColumn {
+        border: solid;
+    }
+</style>
+<div class="row">
+    <div class="col-md-2">
+        <h3>Tools</h3>
+    </div>
+    <div class="col-md-6">
+        <h3>Canvas</h3>
+    </div>
+    <div class="col-md-4">
+        <h3>Results</h3>
+    </div>
+</div>
+<hr>
+<div class="row clearfix">
+    <!--Tool bar-->
+    <div class="col-md-2 column">
+        <h4>Color</h4>
+        <div class="btn-group-vertical">
+            <button type="button" class="btn btn-primary btn-lg btn-block">Red</button>
+            <button type="button" class="btn btn-secondary btn-lg btn-block">Green</button>    
+            <button type="button" class="btn btn-secondary btn-lg btn-block">Blue</button>    
+        </div> 
+        <hr>
+        <h4>Thickness</h4>
+        <div class="btn-group-vertical">
+            <button type="button" class="btn btn-primary btn-lg btn-block">Red</button>
+            <button type="button" class="btn btn-secondary btn-lg btn-block">Green</button>    
+            <button type="button" class="btn btn-secondary btn-lg btn-block">Blue</button>    
+        </div>
+    </div>
+
+    <!--Canvas-->
+    <div class="col-md-6">
+        <div class="container-fluid">
+            <div class="CanvasContainer">
+                <canvas id="drawingCanvas" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>    
+
+    <!--Display area-->
+    <div class="col-md-4">
+
+        <button type="button" class="btn btn-primary btn-lg btn-block">Red</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block">Block level button</button>
+
+    </div>
+</div>
+{% endblock %}

@@ -14,9 +14,13 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/test')
+@app.route('/home')
 def test():
-    return render_template('test.html')
+    return render_template('home.html')
+
+@app.route('/draw')
+def draw():
+    return render_template('draw.html')
 
 @app.errorhandler(404)
 def page_not_found(e):

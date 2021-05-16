@@ -1,8 +1,7 @@
 # ignore data folder
-/data/
-/.vscode/
-/__pycache__/
-/saved/
-/.DS_Store/
-/test/
-/models/__pycache__/
+data/
+.vscode/
+__pycache__/
+saved/
+.DS_Store/
+test/

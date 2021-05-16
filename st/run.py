@@ -7,11 +7,10 @@ from models.lenet import LeNet
 from models.resnet import ResNet18, ResNet34, ResNet50, ResNet101
 from models.vgg16 import Vgg16_Net
 import torch as t
-import os
-from contents import intro_team, intro_dataset, show_img
 
-# all  classes in CIFAR-10
-classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+from st.contents import intro_team, intro_dataset, \
+                intro_method, intro_reference, show_img
+
 
 def main():
     # Title
@@ -22,41 +21,57 @@ def main():
         <br><br />
         This is the final project of our team.
         <br><br />
-        We implemented a simple image classification system based on deep learning method.
+        We implemented a simple image classification system using deep learning method.
         <br><br />
         To read more about how the system works, click below.
 
         """
         , unsafe_allow_html=True
     )
-
-
-
     more_info = st.button("More about this")
     st.markdown("---")
     if more_info:
         presentation()
-        st.markdown("---")
     else:
         classify_img()
 
 
 
 def presentation():
+    back_to_system = st.button("Back", key="first")
+    if back_to_system:
+        classify_img()
 
     # team member introduction
-    st.subheader("There are two members in our team:")
+    st.markdown("## 1. Team members")
+    st.markdown("There are two members in our team:")
     intro_team()
+    st.markdown("---")
 
     # project module introduction
-    st.markdown("## 1. Structure of the project")
+    st.markdown("## 2. Structure of the project")
     show_img("https://raw.githubusercontent.com/226wyj/You-Draw-I-Guess/main/st/img/module.jpg?token=AFSVXAXOK3C4L25CS6GBVS3AUDDOW")
+    st.markdown("---")
+
+    # Technology stack introduction
+    st.markdown("## 3. Technology Used")
+    intro_method()
+    st.markdown("---")
 
     # dataset introduction
-    st.markdown("## 2. Dataset: CIFAR-10")
+    st.markdown("## 4. Dataset: CIFAR-10")
     intro_dataset()
     show_img("https://raw.githubusercontent.com/226wyj/You-Draw-I-Guess/main/st/img/cifar-10.jpg?token=AFSVXAWV72PXPP7UAAQ6AITAUDDUK")
+    st.markdown("---")
 
+    # References
+    st.markdown("## 5. References")
+    intro_reference()
+    st.markdown("---")
+
+    back_to_system = st.button("Back", key="second")
+    if back_to_system:
+        classify_img()
 
 def get_model(model):
     model_path = '../saved'
@@ -81,6 +96,9 @@ def get_model(model):
     return net, os.path.join(model_path, model_name)
 
 def classify_img():
+    # all  classes in CIFAR-10
+    classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+
     st.header("All types:")
     st.subheader("Plane, Car, Bird, Cat, Deer, Dog, Frog, Hourse, Ship, Truck")
 

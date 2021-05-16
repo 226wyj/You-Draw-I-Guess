@@ -17,7 +17,6 @@ def main():
     st.title("Image Classification System")
     st.markdown(
         """
-        
         <br><br />
         This is the final project of our team.
         <br><br />

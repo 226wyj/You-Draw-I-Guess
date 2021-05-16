@@ -87,6 +87,14 @@ def intro_reference():
         [21] https://en.wikipedia.org/wiki/Bootstrap_(front-end_framework)
 
         [22] https://www.sqlite.org/index.html
+
+        [23] https://www.w3school.com.cn/
+
+        [24] https://zhidao.baidu.com/question/528394327.html
+
+        [25] https://docs.streamlit.io/en/stable/index.html
+
+        [26] https://discuss.streamlit.io/t/how-to-center-images-latex-header-title-etc/1946/4
         """
     )
 
@@ -97,12 +105,24 @@ def intro_method():
     <table>
         <tr>
             <th>Module</th>
-            <th>Technology</th>
+            <th>Method</th>
         </tr>
         <tr>
-            <td>Back End(Neural Network)</td>
+            <td>Neural Network</td>
             <td>PyTorch</td>
         </tr>
+        <tr>
+            <td>Loss Function</td>
+            <td>Cross Entropy</td>
+        </tr>
+        <tr>
+            <td>Optimizer</td>
+            <td>SGD</td>
+        </tr>
+        <tr>
+            <td>Scheduler</td>
+            <td>CosineAnnealingLR</td>
+        </td>
         <tr>
             <td>Front End</td>
             <td>Streamlit</td>

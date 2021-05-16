@@ -48,10 +48,22 @@ def presentation():
     # project module introduction
     st.markdown("## 2. Structure of the project")
     show_img("https://raw.githubusercontent.com/226wyj/You-Draw-I-Guess/main/st/img/module.jpg?token=AFSVXAXOK3C4L25CS6GBVS3AUDDOW")
+    st.markdown(
+        """
+        <br><br />
+        Sample training command:
+        """
+        , True
+    )
+    st.code(
+        """
+        python main.py --do_train --vgg --batch_size=64 --epoch=200
+        """
+    )
     st.markdown("---")
 
     # Technology stack introduction
-    st.markdown("## 3. Technology Used")
+    st.markdown("## 3. Methods Used")
     intro_method()
     st.markdown("---")
 
@@ -59,6 +71,21 @@ def presentation():
     st.markdown("## 4. Dataset: CIFAR-10")
     intro_dataset()
     show_img("https://raw.githubusercontent.com/226wyj/You-Draw-I-Guess/main/st/img/cifar-10.jpg?token=AFSVXAWV72PXPP7UAAQ6AITAUDDUK")
+    st.markdown(
+        """
+        <br><br />
+        Data Process:
+        """
+        , True
+    )    
+    st.code(
+        """
+        transforms.RandomCrop(32, padding=4),
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        """
+    )
     st.markdown("---")
 
     # References

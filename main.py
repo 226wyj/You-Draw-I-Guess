@@ -14,7 +14,6 @@ import torch.nn as nn
 from torch import optim
 import argparse
 import os
-from PIL import Image
 
 
 def main(args):
@@ -70,7 +69,6 @@ def main(args):
     model_path = os.path.join(args.model_path, model_name)
 
 
-
     # 启动训练
     if args.do_train:
         print("Training...")
@@ -119,15 +117,15 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
    
-    # 数据集
+    # Data
     parser.add_argument("--num_workers", default=0, type=int, help="Thread number for training.")
     parser.add_argument("--is_download", default=True, type=bool, help="Download the datasets if there is no data.")
 
-    # 根目录
+    # Dir
     parser.add_argument("--data_path", default="data", type=str, help="The directory of the CIFAR-10 data.")
     parser.add_argument("--model_path", default="saved", type=str, help="The directory of the saved model.")
     
-    # 模型参数文件名字
+    # File Name
     parser.add_argument("--name_le", default="lenet.pth", type=str, help="The name of the saved model's parameters.")
     parser.add_argument("--name_vgg", default="vgg16.pth", type=str, help="The name of the saved model's parameters.")
     parser.add_argument("--name_res18", default="resnet18.pth", type=str, help="The name of the saved model's parameters.")
@@ -136,12 +134,12 @@ if __name__ == "__main__":
     parser.add_argument("--name_res101", default="resnet101.pth", type=str, help="The name of the saved model's parameters.")
     parser.add_argument("--name_res152", default="resnet152.pth", type=str, help="The name of the saved model's parameters.")
 
-    # 训练相关
+    # Train
     parser.add_argument("--batch_size", default=128, type=int, help="Batch size for training and evaluation.")
     parser.add_argument("--epoch", default=10, type=int, help="The number of training epochs.")
     parser.add_argument("--seed", default=42, type=int, help="The random seed used for initialization.")
     
-    # 超参数
+    # Hyper Parameters
     parser.add_argument("--learning_rate", default=0.01, type=float, help="The initial learning rate for Adam.")
     parser.add_argument("--weight_decay", default=5e-4, type=int, help="Weight decay of SGD optimzer.")
     parser.add_argument("--sgd_momentum", default=0.9, type=float, help="The momentum of the SGD optimizer.")
@@ -149,7 +147,7 @@ if __name__ == "__main__":
     parser.add_argument("--adam_epsilon", default=1e-8, type=float, help="The Epsilon of Adam optimizer.")
     parser.add_argument("--max_grad_norm", default=1.0, type=float, help="Max gradient norm.")
 
-    # 命令
+    # Commands
     parser.add_argument("--do_train", action="store_true", help="Whether to run training.")
     parser.add_argument("--do_eval", action="store_true", help="Whether to run eval on the test set.")
     parser.add_argument("--do_predict", action="store_true", help="Predict single image with the saved model.")

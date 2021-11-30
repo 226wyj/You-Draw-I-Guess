@@ -1,0 +1,13 @@
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.nav-item {
+    padding: 0 18px;
+}
+
+.brand-image {
+    width: 30%;
+    height: 50%;
+}
